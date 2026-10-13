@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision models vs. LLMs · Lab · Usman Khan</title>
+    <meta name="description" content="How much better is a decision model than an LLM at ranking a few hundred options?">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧪</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="shell">
+        <aside class="side" id="top">
+            <div class="side-top">
+                <p class="kicker"><a href="../">Lab</a></p>
+                <h1 class="title">Decision models vs. LLMs</h1>
+                <p class="lead">How much better is a decision model than an LLM at ranking a few hundred options?</p>
+                <nav class="side-nav" aria-label="On this page">
+                    <a href="#question">Question</a>
+                    <a href="#method">Method</a>
+                    <a href="#results">Results</a>
+                    <a href="#next">Next</a>
+                </nav>
+            </div>
+            <div class="side-bottom">
+                <a href="../" class="back"><span aria-hidden="true">←</span> All experiments</a>
+                <div class="socials">
+                    <a href="https://github.com/usmank06/lab/tree/main/2026-10-13-decision-models-vs-llms" target="_blank" rel="noopener noreferrer" aria-label="Code on GitHub" title="Code on GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                    <a href="mailto:hello@usmankhan.io" aria-label="Email" title="hello@usmankhan.io">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-col">
+            <section id="facts">
+                <aside class="facts" aria-labelledby="facts-title">
+                    <div class="facts-head">
+                        <h2 id="facts-title">Details</h2>
+                        <span class="meta">Updated October 2026</span>
+                    </div>
+                    <dl>
+                        <div class="facts-row">
+                            <dt>Started</dt>
+                            <dd>October 13, 2026</dd>
+                        </div>
+                        <div class="facts-row">
+                            <dt>Status</dt>
+                            <dd><span class="status status-progress">In progress</span></dd>
+                        </div>
+                        <div class="facts-row">
+                            <dt>Code and notes</dt>
+                            <dd><a href="https://github.com/usmank06/lab/tree/main/2026-10-13-decision-models-vs-llms" target="_blank" rel="noopener noreferrer" class="link">2026-10-13-decision-models-vs-llms</a>&nbsp;<span aria-hidden="true">↗</span></dd>
+                        </div>
+                    </dl>
+                </aside>
+            </section>
+
+            <section id="question" class="section">
+                <div class="section-head">
+                    <h2>The question</h2>
+                </div>
+                <div class="prose">
+                    <p><a href="https://flights.cx" target="_blank" rel="noopener noreferrer">flights.cx</a> runs ~43 searches per trip and ends up with ~280 itineraries. One step ranks those into three plans. That step was an LLM, and a search took 4+ min. I replaced it with a typed classifier and a search dropped to ~1.5 min.</p>
+                    <p>That&rsquo;s one task in one product, and I only measured time. I didn&rsquo;t check if the picks got worse. I want to run it properly: same searches, same inputs, a decision model against an LLM, measuring speed, cost, consistency and how good the picks are.</p>
+                    <p>Then the same again with messier input, since itineraries are clean structured data and most ranking problems aren&rsquo;t.</p>
+                    <h3>What I expect</h3>
+                    <p>The decision model wins on speed and cost, probably by a lot, and it&rsquo;s more consistent: same input, same pick. Quality is the part I don&rsquo;t know. My guess is they&rsquo;re close on structured data and the LLM wins once there&rsquo;s free text to read.</p>
+                </div>
+            </section>
+
+            <section id="method" class="section">
+                <div class="section-head">
+                    <h2>Method</h2>
+                </div>
+                <div class="prose">
+                    <ol>
+                        <li>Save 30–50 real searches from flights.cx, ~280 itineraries each, with anything personal stripped out. I pick the best 3 for each by hand and get two or three friends to do the same. That&rsquo;s the answer key.</li>
+                        <li>Run every search through four pickers: the decision model, an LLM with a decent prompt, an LLM with structured output, and a plain scoring function as the floor.</li>
+                        <li>Record time and cost per search, how often each picker matches the answer key (top 1 and top 3), and whether it gives the same answer across 5 runs.</li>
+                        <li>Repeat with a second task where part of the input is free text.</li>
+                    </ol>
+                    <p class="note">Exact models, prompts and the search set go in the repo folder once I&rsquo;m running.</p>
+                </div>
+            </section>
+
+            <section id="results" class="section">
+                <div class="section-head">
+                    <h2>Results</h2>
+                </div>
+                <div class="prose">
+                    <p class="note">Nothing yet.</p>
+                </div>
+            </section>
+
+            <section id="next" class="section">
+                <div class="section-head">
+                    <h2>What&rsquo;s next</h2>
+                </div>
+                <div class="prose">
+                    <p>Collect the searches and build the answer key, then start running.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Highlight the nav item for the section currently in view.
+        const links = [...document.querySelectorAll('.side-nav a')];
+        const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+        const setActive = () => {
+            const line = window.innerHeight * 0.35;
+            let current = null;
+            for (const s of sections) {
+                if (s.getBoundingClientRect().top <= line) current = s;
+            }
+            if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) current = sections[sections.length - 1];
+            links.forEach(a => a.classList.toggle('active', !!current && a.getAttribute('href') === '#' + current.id));
+        };
+        addEventListener('scroll', setActive, { passive: true });
+        addEventListener('resize', setActive);
+        setActive();
+    </script>
+</body>
+</html>

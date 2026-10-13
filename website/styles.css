@@ -1,0 +1,690 @@
+/* Same system as usmankhan.io: Inter, white, zinc greys, one blue accent. */
+
+:root {
+    --text: #111111;
+    --body: #3f3f46;
+    --muted: #71717a;
+    --border: #e4e4e7;
+    --border-soft: #efeff1;
+    --surface: #f4f4f5;
+    --accent: #2563eb;
+    --done: #16a34a;
+
+    --gutter: 3rem;
+    --side-top: 6rem;
+    --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+}
+
+/* No rubber-band bounce when scrolling past the top or bottom. */
+html,
+body {
+    overscroll-behavior: none;
+}
+
+body {
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--body);
+    background-color: #ffffff;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+img,
+svg {
+    display: block;
+}
+
+strong {
+    font-weight: 600;
+    color: var(--text);
+}
+
+::selection {
+    background-color: rgb(37 99 235 / 0.15);
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Shared */
+
+h1,
+h2,
+h3 {
+    color: var(--text);
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.meta {
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.link {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: #d4d4d8;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.link:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+}
+
+/* Status of an experiment: a small dot and a word. Kept inline (not flex) so its baseline is the
+   text's baseline in every browser, and it lines up with whatever sits beside it. */
+.status {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.status::before {
+    content: "";
+    display: inline-block;
+    width: 0.4375rem;
+    height: 0.4375rem;
+    margin-right: 0.4375rem;
+    border-radius: 50%;
+    background-color: #a1a1aa;
+    vertical-align: 0.1em; /* centres the dot on the capitals */
+}
+
+.status-progress::before {
+    background-color: var(--accent);
+}
+
+.status-done::before {
+    background-color: var(--done);
+}
+
+.status-dropped {
+    color: var(--muted);
+}
+
+/* Layout: intro stays put on the left, everything else scrolls on the right. */
+
+.shell {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 5rem;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+
+/* Sidebar */
+
+.side {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    padding: var(--side-top) 0 4rem;
+}
+
+.kicker {
+    margin-bottom: 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.kicker a {
+    transition: color 0.15s ease;
+}
+
+.kicker a:hover {
+    color: var(--text);
+}
+
+h1 {
+    font-size: 3rem;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.25rem;
+}
+
+/* Experiment titles are longer than "Lab", so they get a smaller size. */
+h1.title {
+    font-size: 2.125rem;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+}
+
+.lead {
+    max-width: 22rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+.side-nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3.5rem;
+}
+
+.side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.625rem 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s ease;
+}
+
+/* The line in front of each item grows when it is hovered or current. */
+.side-nav a::before {
+    content: "";
+    width: 2rem;
+    height: 1px;
+    background-color: #d4d4d8;
+    transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.side-nav a:hover,
+.side-nav a.active {
+    color: var(--text);
+}
+
+.side-nav a:hover::before,
+.side-nav a.active::before {
+    width: 4rem;
+    background-color: var(--text);
+}
+
+.side-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.back {
+    width: fit-content;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text);
+    transition: color 0.15s ease;
+}
+
+.back:hover {
+    color: var(--accent);
+}
+
+.socials {
+    display: flex;
+    gap: 0.625rem;
+}
+
+.socials a {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: 0.625rem;
+    color: #52525b;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.socials a:hover {
+    color: var(--text);
+    border-color: #d4d4d8;
+    background-color: #fafafa;
+}
+
+.socials svg {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+/* Main column */
+
+/* Starts level with the sidebar's title, less 0.2rem so the cap tops of the h2 and the h1
+   line up, not just their boxes. */
+.main-col {
+    padding-top: calc(var(--side-top) - 0.2rem);
+    padding-bottom: 4rem;
+}
+
+/* Sections */
+
+/* Each section starts with a thin line across the column, heading just below it. */
+.section {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    scroll-margin-top: 6rem;
+}
+
+/* The first thing in the column sits flush with the sidebar's top, at every breakpoint. */
+.section.section-first {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.head-link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    transition: color 0.15s ease;
+}
+
+.head-link:hover {
+    color: var(--accent);
+}
+
+.section-intro {
+    margin: -0.5rem 0 1.75rem;
+}
+
+/* Facts card: date, status and code link at the top of an experiment page. */
+
+/* The card's top edge lines up with the cap tops of the sidebar's "Lab" kicker. */
+#facts {
+    margin-top: 0.55rem;
+    scroll-margin-top: 6rem;
+}
+
+.facts {
+    padding: 1.5rem 1.75rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+}
+
+.facts-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.875rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.facts-head h2 {
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+}
+
+.facts-row {
+    padding: 0.875rem 0;
+}
+
+.facts-row + .facts-row {
+    border-top: 1px solid var(--border-soft);
+}
+
+.facts dt {
+    font-size: 0.8125rem;
+    color: var(--muted);
+}
+
+.facts dd {
+    color: var(--text);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* Experiment list: title and a note on the left, status and date on the right. */
+
+.rows {
+    border-top: 1px solid var(--border);
+}
+
+.rows li {
+    border-bottom: 1px solid var(--border);
+}
+
+/* The next section's line closes the list; a second line here would double it. */
+.rows li:last-child {
+    border-bottom: 0;
+}
+
+/* And that section sits right under the list, so the last row is boxed in evenly. */
+#experiments + .section {
+    margin-top: 0;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.row-title {
+    display: block;
+    font-weight: 500;
+    color: var(--text);
+    transition: color 0.15s ease;
+}
+
+.row-sub {
+    display: block;
+    margin-top: 0.125rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted);
+}
+
+.row-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.875rem;
+    flex-shrink: 0;
+}
+
+a.row:hover .row-title {
+    color: var(--accent);
+}
+
+/* Status legend on the home page */
+
+.legend {
+    display: grid;
+    gap: 0.625rem;
+    margin-top: 1.5rem;
+}
+
+.legend div {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: 0.9375rem;
+}
+
+.legend dt {
+    flex: 0 0 6.5rem;
+}
+
+/* Write-up text */
+
+.prose {
+    max-width: 40rem;
+}
+
+.prose > * + * {
+    margin-top: 1rem;
+}
+
+.prose h3 {
+    margin-top: 2rem;
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+}
+
+.prose ul li,
+.prose ol li {
+    position: relative;
+    padding-left: 1.375rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.prose li + li {
+    margin-top: 0.625rem;
+}
+
+.prose ul li::before {
+    content: "";
+    position: absolute;
+    left: 0.125rem;
+    top: 0.68em;
+    width: 0.3125rem;
+    height: 0.3125rem;
+    border-radius: 50%;
+    background-color: #a1a1aa;
+}
+
+.prose ol {
+    counter-reset: step;
+}
+
+.prose ol li::before {
+    content: counter(step) ".";
+    counter-increment: step;
+    position: absolute;
+    left: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.prose a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: #d4d4d8;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.prose a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+}
+
+.prose code {
+    padding: 0.125em 0.375em;
+    font-family: var(--mono);
+    font-size: 0.85em;
+    color: var(--text);
+    background-color: var(--surface);
+    border-radius: 0.375rem;
+}
+
+.prose pre {
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    background-color: var(--surface);
+    border-radius: 0.75rem;
+}
+
+.prose pre code {
+    padding: 0;
+    font-size: inherit;
+    background: none;
+}
+
+.prose blockquote {
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--border);
+    color: var(--muted);
+}
+
+.prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.prose th,
+.prose td {
+    padding: 0.625rem 1rem 0.625rem 0;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.prose th {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted);
+    border-bottom-color: var(--border);
+}
+
+.prose img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.06), 0 8px 24px -10px rgb(0 0 0 / 0.16);
+}
+
+.prose .caption {
+    margin-top: 0.625rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+}
+
+/* A short note at the end of a section, e.g. "no results yet". */
+.note {
+    color: var(--muted);
+}
+
+/* Short windows: tighten the sidebar so everything stays in view */
+
+@media (max-height: 820px) {
+    :root {
+        --side-top: 3.5rem;
+    }
+
+    .side {
+        padding-bottom: 3rem;
+    }
+
+    .side-nav {
+        margin-top: 2.5rem;
+    }
+}
+
+/* Medium screens: one column, intro on top */
+
+@media (max-width: 960px) {
+    :root {
+        --gutter: 2rem;
+    }
+
+    .shell {
+        display: block;
+    }
+
+    .side {
+        position: static;
+        height: auto;
+        padding: 3rem 0 0;
+    }
+
+    .side-nav {
+        display: none;
+    }
+
+    .side-bottom {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+
+    .main-col {
+        padding-top: 3.5rem;
+    }
+}
+
+/* Small screens */
+
+@media (max-width: 640px) {
+    :root {
+        --gutter: 1.25rem;
+    }
+
+    h1 {
+        font-size: 2.375rem;
+    }
+
+    h1.title {
+        font-size: 1.75rem;
+    }
+
+    .facts {
+        padding: 1.25rem 1.25rem 0.375rem;
+    }
+
+    .section {
+        margin-top: 2.5rem;
+        padding-top: 1.25rem;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .legend dt {
+        flex-basis: 5.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+    }
+}

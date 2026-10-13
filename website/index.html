@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab · Usman Khan</title>
+    <meta name="description" content="Mini research projects on anything I'm curious about, both what I finish and what I don't.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧪</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="shell">
+        <aside class="side" id="top">
+            <div class="side-top">
+                <h1>Lab</h1>
+                <p class="lead">Mini research projects on anything I&rsquo;m curious about, both what I finish and what I don&rsquo;t.</p>
+                <nav class="side-nav" aria-label="Primary">
+                    <a href="#experiments">Experiments</a>
+                    <a href="#about">About</a>
+                </nav>
+            </div>
+            <div class="side-bottom">
+                <a href="/" class="back"><span aria-hidden="true">←</span> usmankhan.io</a>
+                <div class="socials">
+                    <a href="https://github.com/usmank06/lab" target="_blank" rel="noopener noreferrer" aria-label="Source on GitHub" title="Source on GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                    <a href="mailto:hello@usmankhan.io" aria-label="Email" title="hello@usmankhan.io">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-col">
+            <section id="experiments" class="section section-first">
+                <div class="section-head">
+                    <h2>Experiments</h2>
+                    <a href="https://github.com/usmank06/lab" target="_blank" rel="noopener noreferrer" class="head-link">Source on GitHub <span aria-hidden="true">↗</span></a>
+                </div>
+                <ul class="rows">
+                    <!-- Newest first. Each row: title, one-line question, status, month. -->
+                    <li>
+                        <a href="decision-models-vs-llms/" class="row">
+                            <span class="row-text">
+                                <span class="row-title">Decision models vs. LLMs</span>
+                                <span class="row-sub">How much better is a decision model than an LLM at ranking a few hundred options?</span>
+                            </span>
+                            <span class="row-meta"><span class="status status-progress">In progress</span><span class="meta">Oct 2026</span></span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="about" class="section">
+                <div class="section-head">
+                    <h2>About</h2>
+                </div>
+                <div class="prose">
+                    <p>Each lab starts with a question. It gets a folder in the <a href="https://github.com/usmank06/lab" target="_blank" rel="noopener noreferrer">repo</a> with the code and notes, and a page here with what I tried and what came out.</p>
+                    <p>They&rsquo;re small. Some will go nowhere, and the page will say so.</p>
+                </div>
+                <dl class="legend">
+                    <div><dt><span class="status status-progress">In progress</span></dt><dd>Still running. The page has the question and the plan.</dd></div>
+                    <div><dt><span class="status status-done">Done</span></dt><dd>Finished. Results are on the page.</dd></div>
+                    <div><dt><span class="status status-dropped">Dropped</span></dt><dd>Stopped early. The page says why.</dd></div>
+                </dl>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Highlight the nav item for the section currently in view.
+        const links = [...document.querySelectorAll('.side-nav a')];
+        const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+        const setActive = () => {
+            const line = window.innerHeight * 0.35;
+            let current = null;
+            for (const s of sections) {
+                if (s.getBoundingClientRect().top <= line) current = s;
+            }
+            if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) current = sections[sections.length - 1];
+            links.forEach(a => a.classList.toggle('active', !!current && a.getAttribute('href') === '#' + current.id));
+        };
+        addEventListener('scroll', setActive, { passive: true });
+        addEventListener('resize', setActive);
+        setActive();
+    </script>
+</body>
+</html>
