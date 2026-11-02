@@ -1,0 +1,1083 @@
+{
+  "generator": "anthropic/claude-fable-5.1",
+  "checker": "openai/gpt-6-astra",
+  "generated_at": "2026-10-29",
+  "candidates": [
+    {
+      "format": "yesno",
+      "domain": "geography",
+      "question": "Is Canberra the capital city of Australia?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "geography",
+      "question": "Is Lake Baikal in Siberia the deepest freshwater lake in the world?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "geography",
+      "question": "Is Reykjavík the northernmost capital city of a sovereign state?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "geography",
+      "question": "Is Mount Kilimanjaro located in Kenya?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "geography",
+      "question": "Is the Mariana Trench located in the Atlantic Ocean?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "history",
+      "question": "Did the Berlin Wall fall in 1989?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "history",
+      "question": "Did the Peace of Westphalia in 1648 end the Thirty Years' War?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "history",
+      "question": "Did the Hundred Years' War between England and France last exactly 100 years?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "history",
+      "question": "Was Julius Caesar ever formally crowned Emperor of Rome?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "science",
+      "question": "Does sound travel faster in water than in air?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "science",
+      "question": "Is W the chemical symbol for tungsten?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "science",
+      "question": "Is helium lighter than hydrogen?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "mathematics",
+      "question": "Is the square root of 2 an irrational number?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "mathematics",
+      "question": "Is the number 1 considered a prime number?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "mathematics",
+      "question": "Is Euler's number e a rational number?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "literature",
+      "question": "Did George Orwell write the novel 'Animal Farm'?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "literature",
+      "question": "Was 'Pride and Prejudice' written by Charlotte Brontë?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "literature",
+      "question": "Was Gabriel García Márquez's 'One Hundred Years of Solitude' originally written in Portuguese?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "music",
+      "question": "Did Joseph Haydn compose more than 100 symphonies?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "music",
+      "question": "Was Wolfgang Amadeus Mozart born in Vienna?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "sports",
+      "question": "Is the official distance of a marathon 42.195 kilometres?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "sports",
+      "question": "Does a standard association football (soccer) match consist of 80 minutes of regulation play?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "technology",
+      "question": "Was the Linux kernel originally created by Linus Torvalds?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "technology",
+      "question": "Was the Python programming language named after the python snake?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "biology",
+      "question": "Do octopuses have three hearts?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "biology",
+      "question": "Do spiders have six legs?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "astronomy",
+      "question": "Is Venus the hottest planet in the Solar System by average surface temperature?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "astronomy",
+      "question": "Is Pluto larger in diameter than Earth's Moon?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "economics",
+      "question": "Was the Bretton Woods Conference, which established the IMF and World Bank, held in 1944?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "economics",
+      "question": "Is the euro the official currency of Switzerland?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "art",
+      "question": "Was the painting 'Guernica' created by Pablo Picasso?",
+      "options": null,
+      "answer": "yes",
+      "checker_raw": "yes",
+      "checker_answer": "yes",
+      "agree": true
+    },
+    {
+      "format": "yesno",
+      "domain": "art",
+      "question": "Was 'The Persistence of Memory' (the melting clocks painting) painted by René Magritte?",
+      "options": null,
+      "answer": "no",
+      "checker_raw": "no",
+      "checker_answer": "no",
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "geography",
+      "question": "Which is the longest river in South America?",
+      "options": [
+        "Paraná",
+        "Amazon",
+        "Orinoco",
+        "São Francisco"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "geography",
+      "question": "What is the capital city of Mongolia?",
+      "options": [
+        "Astana",
+        "Bishkek",
+        "Ulaanbaatar",
+        "Tashkent",
+        "Dushanbe"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "geography",
+      "question": "Which country, counting its overseas territories, spans the most time zones?",
+      "options": [
+        "Russia",
+        "United States",
+        "France",
+        "United Kingdom",
+        "China"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "history",
+      "question": "Who was the first President of the United States?",
+      "options": [
+        "Thomas Jefferson",
+        "John Adams",
+        "George Washington",
+        "Benjamin Franklin"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "history",
+      "question": "Which 1919 treaty formally ended World War I between Germany and the Allied Powers?",
+      "options": [
+        "Treaty of Trianon",
+        "Treaty of Versailles",
+        "Treaty of Sèvres",
+        "Treaty of Saint-Germain",
+        "Treaty of Brest-Litovsk"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "history",
+      "question": "Who was the first emperor of a unified China?",
+      "options": [
+        "Qin Shi Huang",
+        "Emperor Wu of Han",
+        "Kublai Khan",
+        "Emperor Taizong of Tang"
+      ],
+      "answer": 0,
+      "checker_raw": "0",
+      "checker_answer": 0,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "science",
+      "question": "Which gas makes up the largest share of Earth's atmosphere by volume?",
+      "options": [
+        "Oxygen",
+        "Carbon dioxide",
+        "Nitrogen",
+        "Argon"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "science",
+      "question": "What is the SI unit of electric charge?",
+      "options": [
+        "Volt",
+        "Ampere",
+        "Coulomb",
+        "Farad",
+        "Ohm"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "science",
+      "question": "Who discovered the neutron in 1932?",
+      "options": [
+        "Ernest Rutherford",
+        "James Chadwick",
+        "Niels Bohr",
+        "Enrico Fermi",
+        "Wolfgang Pauli"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "mathematics",
+      "question": "What is the sum of the interior angles of a hexagon, in degrees?",
+      "options": [
+        "540",
+        "720",
+        "900",
+        "1080"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "mathematics",
+      "question": "What is the value of 7 factorial (7!)?",
+      "options": [
+        "720",
+        "2520",
+        "5040",
+        "40320"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "mathematics",
+      "question": "Which mathematician published the first complete proof of Fermat's Last Theorem in the 1990s?",
+      "options": [
+        "Alexander Grothendieck",
+        "Andrew Wiles",
+        "Grigori Perelman",
+        "Terence Tao",
+        "Paul Erdős"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "literature",
+      "question": "Who wrote the novel 'Crime and Punishment'?",
+      "options": [
+        "Leo Tolstoy",
+        "Fyodor Dostoevsky",
+        "Anton Chekhov",
+        "Ivan Turgenev",
+        "Nikolai Gogol"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "literature",
+      "question": "In which Shakespeare play does the character Iago appear?",
+      "options": [
+        "Hamlet",
+        "Macbeth",
+        "Othello",
+        "King Lear"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "literature",
+      "question": "Who wrote the 11th-century Japanese classic 'The Tale of Genji'?",
+      "options": [
+        "Sei Shōnagon",
+        "Murasaki Shikibu",
+        "Matsuo Bashō",
+        "Natsume Sōseki"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "music",
+      "question": "How many strings does a standard violin have?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": 0,
+      "checker_raw": "0",
+      "checker_answer": 0,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "music",
+      "question": "Who composed the opera 'The Magic Flute' (Die Zauberflöte)?",
+      "options": [
+        "Giuseppe Verdi",
+        "Richard Wagner",
+        "Wolfgang Amadeus Mozart",
+        "Giacomo Puccini",
+        "Gioachino Rossini"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "music",
+      "question": "Which composer wrote the 'Goldberg Variations' for keyboard?",
+      "options": [
+        "George Frideric Handel",
+        "Johann Sebastian Bach",
+        "Domenico Scarlatti",
+        "Antonio Vivaldi",
+        "Georg Philipp Telemann"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "sports",
+      "question": "Which country hosted the first modern Olympic Games in 1896?",
+      "options": [
+        "France",
+        "Greece",
+        "United Kingdom",
+        "United States"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "sports",
+      "question": "How many points is a try worth in rugby union?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "sports",
+      "question": "Who won the first Tour de France in 1903?",
+      "options": [
+        "Maurice Garin",
+        "Henri Cornet",
+        "Lucien Petit-Breton",
+        "Louis Trousselier",
+        "Philippe Thys"
+      ],
+      "answer": 0,
+      "checker_raw": "0",
+      "checker_answer": 0,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "technology",
+      "question": "Who is credited with inventing the World Wide Web?",
+      "options": [
+        "Bill Gates",
+        "Tim Berners-Lee",
+        "Vint Cerf",
+        "Steve Jobs",
+        "Linus Torvalds"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "technology",
+      "question": "In which year was the first working transistor demonstrated at Bell Labs?",
+      "options": [
+        "1937",
+        "1947",
+        "1957",
+        "1967"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "technology",
+      "question": "Which programming language was created by Dennis Ritchie at Bell Labs in the early 1970s?",
+      "options": [
+        "C",
+        "Fortran",
+        "Pascal",
+        "COBOL",
+        "Lisp"
+      ],
+      "answer": 0,
+      "checker_raw": "0",
+      "checker_answer": 0,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "biology",
+      "question": "How many chromosomes does a typical diploid human cell contain?",
+      "options": [
+        "23",
+        "44",
+        "46",
+        "48",
+        "64"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "biology",
+      "question": "Which organelle contains chlorophyll in plant cells?",
+      "options": [
+        "Mitochondrion",
+        "Chloroplast",
+        "Ribosome",
+        "Vacuole"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "astronomy",
+      "question": "Which star is the closest to the Sun?",
+      "options": [
+        "Sirius",
+        "Alpha Centauri A",
+        "Proxima Centauri",
+        "Barnard's Star",
+        "Vega"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "astronomy",
+      "question": "Which planet in the Solar System has the shortest rotation period (shortest day)?",
+      "options": [
+        "Mercury",
+        "Earth",
+        "Jupiter",
+        "Saturn",
+        "Neptune"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "economics",
+      "question": "Who wrote 'Das Kapital'?",
+      "options": [
+        "Karl Marx",
+        "Friedrich Engels",
+        "John Maynard Keynes",
+        "David Ricardo",
+        "John Stuart Mill"
+      ],
+      "answer": 0,
+      "checker_raw": "0",
+      "checker_answer": 0,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "economics",
+      "question": "Which economist popularised the term 'creative destruction'?",
+      "options": [
+        "John Maynard Keynes",
+        "Friedrich Hayek",
+        "Joseph Schumpeter",
+        "Milton Friedman",
+        "Thorstein Veblen"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "art",
+      "question": "Who sculpted 'The Thinker'?",
+      "options": [
+        "Auguste Rodin",
+        "Michelangelo",
+        "Gian Lorenzo Bernini",
+        "Donatello",
+        "Constantin Brâncuși"
+      ],
+      "answer": 0,
+      "checker_raw": "0",
+      "checker_answer": 0,
+      "agree": true
+    },
+    {
+      "format": "choice",
+      "domain": "art",
+      "question": "Who painted 'Las Meninas' (1656)?",
+      "options": [
+        "Francisco Goya",
+        "Diego Velázquez",
+        "El Greco",
+        "Bartolomé Esteban Murillo",
+        "Francisco de Zurbarán"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "geography",
+      "question": "What is the height of Mount Everest above sea level, in metres?",
+      "options": [
+        "below 5,000",
+        "5,000–5,999",
+        "6,000–6,999",
+        "7,000–7,999",
+        "8,000 or above"
+      ],
+      "answer": 4,
+      "checker_raw": "4",
+      "checker_answer": 4,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "geography",
+      "question": "What was the approximate population of Iceland in 2020?",
+      "options": [
+        "fewer than 50,000",
+        "50,000–149,999",
+        "150,000–299,999",
+        "300,000–599,999",
+        "600,000 or more"
+      ],
+      "answer": 3,
+      "checker_raw": "3",
+      "checker_answer": 3,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "history",
+      "question": "In what year did Christopher Columbus first reach the Americas?",
+      "options": [
+        "before 1300",
+        "1300–1349",
+        "1350–1399",
+        "1400–1449",
+        "1450 or later"
+      ],
+      "answer": 4,
+      "checker_raw": "4",
+      "checker_answer": 4,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "history",
+      "question": "In what year did the Great Fire of London occur?",
+      "options": [
+        "1500–1549",
+        "1550–1599",
+        "1600–1649",
+        "1650–1699",
+        "1700–1749"
+      ],
+      "answer": 3,
+      "checker_raw": "3",
+      "checker_answer": 3,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "science",
+      "question": "What is the speed of light in a vacuum, in kilometres per second?",
+      "options": [
+        "less than 100,000",
+        "100,000–199,999",
+        "200,000–299,999",
+        "300,000–399,999",
+        "400,000 or more"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "science",
+      "question": "What is the boiling point of liquid nitrogen at standard atmospheric pressure, in degrees Celsius?",
+      "options": [
+        "below −270",
+        "−270 to −241",
+        "−240 to −211",
+        "−210 to −181",
+        "−180 or above"
+      ],
+      "answer": 3,
+      "checker_raw": "3",
+      "checker_answer": 3,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "mathematics",
+      "question": "How many prime numbers are there less than 100?",
+      "options": [
+        "fewer than 15",
+        "15–29",
+        "30–44",
+        "45–59",
+        "60 or more"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "literature",
+      "question": "In what year was the first part of Cervantes' 'Don Quixote' published?",
+      "options": [
+        "before 1500",
+        "1500–1549",
+        "1550–1599",
+        "1600–1649",
+        "1650 or later"
+      ],
+      "answer": 3,
+      "checker_raw": "3",
+      "checker_answer": 3,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "music",
+      "question": "In what year did Ludwig van Beethoven die?",
+      "options": [
+        "before 1790",
+        "1790–1809",
+        "1810–1829",
+        "1830–1849",
+        "1850 or later"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "sports",
+      "question": "In what year was the first FIFA World Cup held?",
+      "options": [
+        "before 1920",
+        "1920–1939",
+        "1940–1959",
+        "1960–1979",
+        "1980 or later"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "technology",
+      "question": "In what year was the ENIAC computer publicly unveiled?",
+      "options": [
+        "before 1900",
+        "1900–1919",
+        "1920–1939",
+        "1940–1959",
+        "1960 or later"
+      ],
+      "answer": 3,
+      "checker_raw": "3",
+      "checker_answer": 3,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "biology",
+      "question": "How many bones are in a typical adult human skeleton?",
+      "options": [
+        "fewer than 100",
+        "100–199",
+        "200–299",
+        "300–399",
+        "400 or more"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "astronomy",
+      "question": "What is the average distance from the Earth to the Sun, in millions of kilometres?",
+      "options": [
+        "less than 60",
+        "60–99",
+        "100–139",
+        "140–179",
+        "180 or more"
+      ],
+      "answer": 3,
+      "checker_raw": "3",
+      "checker_answer": 3,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "astronomy",
+      "question": "How long does Jupiter take to orbit the Sun, in Earth years?",
+      "options": [
+        "less than 5",
+        "5–14",
+        "15–29",
+        "30–59",
+        "60 or more"
+      ],
+      "answer": 1,
+      "checker_raw": "1",
+      "checker_answer": 1,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "economics",
+      "question": "In what year was the United States Federal Reserve System established?",
+      "options": [
+        "before 1900",
+        "1900–1909",
+        "1910–1919",
+        "1920–1929",
+        "1930 or later"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    },
+    {
+      "format": "score",
+      "domain": "art",
+      "question": "In what year did Leonardo da Vinci die?",
+      "options": [
+        "before 1480",
+        "1480–1499",
+        "1500–1529",
+        "1530–1559",
+        "1560 or later"
+      ],
+      "answer": 2,
+      "checker_raw": "2",
+      "checker_answer": 2,
+      "agree": true
+    }
+  ]
+}

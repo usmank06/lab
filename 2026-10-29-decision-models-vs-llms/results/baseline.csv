@@ -1,0 +1,13 @@
+tier,format,n,accuracy,macro_f1,rule
+1,all,200,0.54,0.3821083065799934,keyword-regex
+1,choice,80,0.4,0.2774802244129975,keyword-regex
+1,score,40,0.55,0.5706959706959707,keyword-regex
+1,yesno,80,0.675,0.6296296296296297,keyword-regex
+2,all,200,0.36,0.1704882317225615,majority-class
+2,choice,80,0.2375,0.06397306397306397,majority-class
+2,score,40,0.275,0.08627450980392157,majority-class
+2,yesno,80,0.525,0.3442622950819672,majority-class
+3,all,50,0.46,0.2598200570550801,majority-class
+3,choice,20,0.45,0.20689655172413793,majority-class
+3,score,10,0.4,0.14285714285714285,majority-class
+3,yesno,20,0.5,0.3333333333333333,majority-class

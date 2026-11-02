@@ -594,6 +594,133 @@ a.row:hover .row-title {
     color: var(--muted);
 }
 
+/* Results: a row of headline numbers */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.875rem;
+    margin-top: 1.5rem;
+}
+
+.stat {
+    padding: 1.125rem 1.25rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 0.875rem;
+}
+
+.stat-label {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--muted);
+}
+
+.stat-value {
+    margin-top: 0.375rem;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--text);
+}
+
+.stat-sub {
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--muted);
+}
+
+/* Figures: inline SVG charts, drawn at the column's width */
+
+.figure {
+    margin: 1.75rem 0 0;
+}
+
+.figure svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: var(--font);
+}
+
+.figure .caption {
+    margin-top: 0.625rem;
+    max-width: 40rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted);
+}
+
+/* Prose that follows a figure or the stats row starts with normal spacing. */
+.figure + .prose,
+.stats + .prose {
+    margin-top: 1.75rem;
+}
+
+.prose table td,
+.prose table th {
+    padding-right: 0.75rem;
+}
+
+/* Dropdowns for supporting detail */
+
+.more {
+    margin-top: 1.5rem;
+    max-width: 40rem;
+    border: 1px solid var(--border);
+    border-radius: 0.875rem;
+}
+
+.more + .more {
+    margin-top: 0.75rem;
+}
+
+.more summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    list-style: none;
+}
+
+.more summary::-webkit-details-marker {
+    display: none;
+}
+
+.more summary::after {
+    content: "+";
+    font-size: 1.125rem;
+    line-height: 1;
+    color: var(--muted);
+}
+
+.more[open] summary::after {
+    content: "\2212";
+}
+
+.more summary:hover {
+    color: var(--accent);
+}
+
+.more-body {
+    padding: 0 1.25rem 1.25rem;
+}
+
+.more .figure {
+    margin-top: 1rem;
+}
+
+.more + .prose,
+.figure + .more {
+    margin-top: 1.75rem;
+}
+
 /* Short windows: tighten the sidebar so everything stays in view */
 
 @media (max-height: 820px) {
@@ -674,6 +801,10 @@ a.row:hover .row-title {
 
     .legend dt {
         flex-basis: 5.5rem;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
     }
 }
 

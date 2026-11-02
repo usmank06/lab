@@ -1,0 +1,9 @@
+# raw run data stays local: ~48k JSON files and a 180 MB SQLite
+data/raw/
+data/runs.sqlite
+# the OpenRouter key (src.common reads it from here when OPENROUTER_API_KEY is unset)
+.env
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc

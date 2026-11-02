@@ -10,7 +10,7 @@ Newest first. Status is one of **In progress**, **Done** or **Dropped**.
 
 | Date | Experiment | Status | Folder | Write-up |
 |---|---|---|---|---|
-| 2026-10-13 | Decision models vs. LLMs | In progress | [2026-10-13-decision-models-vs-llms](2026-10-13-decision-models-vs-llms/) | [usmankhan.io/lab/decision-models-vs-llms](https://usmankhan.io/lab/decision-models-vs-llms/) |
+| 2026-10-29 | Decision models vs. LLMs | Done | [2026-10-29-decision-models-vs-llms](2026-10-29-decision-models-vs-llms/) | [usmankhan.io/lab/decision-models-vs-llms](https://usmankhan.io/lab/decision-models-vs-llms/) |
 
 ## How this repo is laid out
 

@@ -1,0 +1,389 @@
+# Decision models vs LLMs — experiment configuration.
+# Slugs and prices were resolved live from GET https://openrouter.ai/api/v1/models?output_modalities=all
+# on 2026-10-29 (snapshot of the selected records: data/openrouter_models_snapshot.json).
+# Prices are USD per token exactly as returned by the API (strings), with per-million derived for reading.
+# Do not edit mid-run. Changes after Phase 1 need a new run id.
+
+experiment: decision-models-vs-llms
+config_version: 1
+created: "2026-10-29"
+seed: 20261029
+
+openrouter:
+  base_url: https://openrouter.ai
+  models_endpoint: /api/v1/models?output_modalities=all
+  models_fetched_at: "2026-10-29"
+  # General decisions endpoint (all decision models). /api/v1/systemone shares the same schema and
+  # maps bare TypeSafe ids onto the typesafe/ namespace; the handoff named /v1/systemone, the live docs
+  # document /api/alpha/decisions as the general endpoint. The dry run exercises both for Jev.
+  decisions_path: /api/alpha/decisions
+  systemone_path: /api/v1/systemone
+  chat_path: /api/v1/chat/completions
+  generation_path: /api/v1/generation
+  api_key_env: OPENROUTER_API_KEY
+  app_headers:
+    HTTP-Referer: https://github.com/usmank06/lab
+    X-OpenRouter-Title: decision-models-vs-llms
+
+counts:
+  tier1: 200
+  tier2: 200
+  tier3: 50
+  labelswap: 50            # yesno items from tiers 1+2 (25 each)
+  runs_per_question: 5
+  dry_run_questions: 3
+  dry_run_runs: 1
+
+format_mix:                # per tier, approximate
+  yesno: 0.4
+  choice: 0.4
+  score: 0.2
+
+# Ordered (yes_label, no_label). The first set is also the default rendering for yesno questions.
+label_sets:                # keys quoted: YAML 1.1 would otherwise read bare yes/no as booleans
+  - name: yes_no
+    "yes": "yes"
+    "no": "no"
+  - name: zero_one
+    "yes": "1"
+    "no": "0"
+  - name: a_b
+    "yes": "A"
+    "no": "B"
+
+concurrency:
+  per_model: 4             # all arms run from this one machine
+  generation_lookup: 4     # GET /api/v1/generation after each call (record appears ~7 s after the call; probed 2026-10-29)
+  generation_lookup_delay_s: 6.0
+  generation_lookup_attempts: 12   # 2 of 71 dry-run records were still 404 after ~30 s; waits happen outside the slot
+  generation_lookup_retry_s: 5.0
+
+retry:
+  max_attempts: 5          # on 429 / 5xx / network errors, then recorded as failed
+  backoff_base_s: 1.0
+  backoff_max_s: 30.0
+  retry_statuses: [429, 500, 502, 503, 504, 524, 529]
+
+timeouts:
+  request_s: 180
+  reasoning_request_s: 600
+
+rendering:
+  # How choice options are keyed for decision models: "text" uses the option text as the criteria key
+  # (native style, e.g. {"Billing": null}); "letters" uses A-H keys with the option text as description.
+  decision_choice_keys: text
+  # Instant LLMs: logit bias value applied uniformly to every allowed token (uniform bias preserves the
+  # relative probabilities among the allowed set after renormalisation). Only used where the arm enables it.
+  logit_bias_value: 100
+  top_logprobs: 20
+  token_ids_file: data/token_ids.json
+  reasoning_max_tokens: 6000
+
+# Arm numbering follows the handoff. status: selected | candidate | dropped.
+# Candidates are run in the dry run only; the dry-run result decides which becomes the selected arm.
+arms:
+  jev-1.14:
+    arm: 1
+    kind: decision
+    role: reference
+    slug: typesafe/jev-1.14
+    canonical_slug: typesafe/jev-1.14-20261014
+    name: "TypeSafe: Jev 1.14"
+    status: selected
+    context_length: 262144
+    pricing: {prompt: "0.000000042", completion: "0"}
+    price_per_million: {prompt: 0.042, completion: 0.0}
+  decider-v1.2:
+    arm: 2
+    kind: decision
+    role: 27b-decision
+    slug: perplexity/pplx-decider-v1.2
+    canonical_slug: perplexity/pplx-decider-v1.2-20261016
+    name: "Perplexity: Decider V1.2"
+    status: selected
+    context_length: 262144
+    pricing: {prompt: "0.00000002", completion: "0"}
+    price_per_million: {prompt: 0.02, completion: 0.0}
+    pairs_with: qwen3.5-27b
+  elephant-1:
+    arm: 3
+    kind: decision
+    role: matched-pair-A
+    slug: baseten/elephant-1
+    canonical_slug: baseten/elephant-1-20261021
+    name: "Baseten: Elephant 1"
+    status: selected
+    context_length: 16384
+    pricing: {prompt: "0.000000035", completion: "0"}
+    price_per_million: {prompt: 0.035, completion: 0.0}
+    base_model: qwen/qwen3.5-9b      # stated in the OpenRouter description: "built on Qwen3.5-9B"
+    pairs_with: qwen3.5-9b
+  microsoft-decision-1:
+    arm: 4
+    kind: decision
+    role: matched-pair-B
+    slug: microsoft/microsoft-decision-1
+    canonical_slug: microsoft/microsoft-decision-1-20261009
+    name: "Microsoft: Microsoft-Decision-1"
+    status: selected
+    context_length: 32768
+    pricing: {prompt: "0.000000042", completion: "0"}
+    price_per_million: {prompt: 0.042, completion: 0.0}
+    base_model: qwen/qwen3.5-9b      # OpenRouter model page (2026-10-29): "post-trained from Qwen3.5-9B for single-pass scoring"; single provider: Azure
+    pairs_with: qwen3.5-9b
+  d1-ultra:
+    arm: 5
+    kind: decision
+    role: non-qwen-decision
+    slug: liquid/d1-ultra
+    canonical_slug: liquid/d1-ultra-20261015
+    name: "LiquidAI: d1-ultra"
+    status: selected
+    context_length: 32768
+    pricing: {prompt: "0.000000042", completion: "0", input_cache_read: "0.000000042"}
+    price_per_million: {prompt: 0.042, completion: 0.0}
+  qwen3.5-9b:
+    arm: 6
+    kind: instant
+    role: control-9b
+    slug: qwen/qwen3.5-9b
+    canonical_slug: qwen/qwen3.5-9b-20260310
+    name: "Qwen: Qwen3.5-9B"
+    status: selected
+    context_length: 262144
+    # Provider pinned after the dry run (2026-10-29): default routing went to PrimeIntellect and SiliconFlow (no
+    # logprobs returned) and Darkbloom (fp4 quantised). Parasail is the only bf16 endpoint that supports logprobs,
+    # top_logprobs and logit_bias. Prices below are Parasail's endpoint prices; the model-level list price was
+    # 0.17 / 0.25 per million.
+    provider: {order: ["parasail/bf16"], allow_fallbacks: false, require_parameters: true}
+    pricing: {prompt: "0.0000001", completion: "0.00000025"}
+    price_per_million: {prompt: 0.10, completion: 0.25}
+    model_list_price_per_million: {prompt: 0.17, completion: 0.25}
+    supports: {logprobs: true, top_logprobs: true, logit_bias: true, temperature: true, seed: true}
+    temperature: 0
+    seed: 20261029
+    logit_bias: true
+    tokenizer: Qwen3
+    reasoning: {enabled: false}      # Qwen3.5 can think; off for the instant arm (dry run: 0 reasoning tokens, <think> not sampled)
+  qwen3.5-27b:
+    arm: 7
+    kind: instant
+    role: control-27b
+    slug: qwen/qwen3.5-27b
+    canonical_slug: qwen/qwen3.5-27b-20260224
+    name: "Qwen: Qwen3.5-27B"
+    status: selected
+    context_length: 262144
+    # Provider pinned after probing every endpoint (2026-10-29): Phala, Novita, DeepInfra, AtlasCloud and SiliconFlow
+    # return NO logprobs for this model even when they list the parameter (Novita also rejects top_logprobs > 5).
+    # Alibaba (the model maker's endpoint) is the only one that returns logprobs; it caps top_logprobs at 5, so
+    # for 6-8 option questions the options outside the top 5 get probability 0 (recorded as missing_labels).
+    # Alibaba does not support logit_bias, so this arm runs without it. Alibaba showed 68% uptime over the last 30
+    # minutes and occasional rate-limit errors in the probe; the runner retries those with backoff.
+    # Prices are Alibaba's endpoint prices; model-level list was 0.26 / 2.6.
+    provider: {order: ["alibaba"], allow_fallbacks: false, require_parameters: true}
+    top_logprobs: 5
+    pricing: {prompt: "0.000000195", completion: "0.00000156"}
+    price_per_million: {prompt: 0.195, completion: 1.56}
+    model_list_price_per_million: {prompt: 0.26, completion: 2.6}
+    supports: {logprobs: true, top_logprobs: true, logit_bias: false, temperature: true, seed: true}
+    temperature: 0
+    seed: 20261029
+    logit_bias: false
+    tokenizer: Qwen3
+    reasoning: {enabled: false}
+  gpt-5-nano:
+    arm: 8
+    kind: instant
+    role: cheap-closed-candidate
+    slug: openai/gpt-5-nano
+    canonical_slug: openai/gpt-5-nano-2025-08-07
+    name: "OpenAI: GPT-5 Nano"
+    status: dropped
+    drop_reason: "dry run 2026-10-29: HTTP 400 from both OpenAI and Azure: 'logprobs are not supported with reasoning models'"
+    context_length: 400000
+    pricing: {prompt: "0.00000005", completion: "0.0000004", input_cache_read: "0.000000005"}
+    price_per_million: {prompt: 0.05, completion: 0.4}
+    supports: {logprobs: false, top_logprobs: false, logit_bias: false, temperature: false, seed: true}
+    seed: 20261029
+    logit_bias: false
+    reasoning: {effort: minimal}  # reasoning is mandatory for this model; minimal is its lowest
+  claude-haiku-4.5:
+    arm: 8
+    kind: instant
+    role: cheap-closed-candidate
+    slug: anthropic/claude-haiku-4.5
+    canonical_slug: anthropic/claude-4.5-haiku-20251001
+    name: "Anthropic: Claude Haiku 4.5"
+    status: dropped
+    drop_reason: "dry run 2026-10-29: no logprobs in any response (Amazon Bedrock); 3 of 4 one-token answers were outside the allowed set. Arm 8 is dropped: neither candidate returns token logprobs through OpenRouter."
+    context_length: 200000
+    pricing: {prompt: "0.000001", completion: "0.000005", input_cache_read: "0.0000001", input_cache_write: "0.00000125"}
+    price_per_million: {prompt: 1.0, completion: 5.0}
+    supports: {logprobs: false, top_logprobs: false, logit_bias: false, temperature: true, seed: false}
+    temperature: 0
+    logit_bias: false
+    reasoning: {enabled: false}
+  claude-fable-5.1:
+    arm: 9
+    kind: reasoning
+    role: ceiling-candidate
+    slug: anthropic/claude-fable-5.1
+    canonical_slug: anthropic/claude-fable-5.1-20260831
+    name: "Anthropic: Claude Fable 5.1"
+    status: dropped
+    drop_reason: "dry run 2026-10-29: $0.0106 per call vs GPT-6 Astra $0.0052 (same questions, medium effort; low effort the same). Also returned 0 reasoning tokens at both efforts (reasoned in visible text instead)."
+    context_length: 1000000
+    pricing: {prompt: "0.00001", completion: "0.00005", input_cache_read: "0.00000025", input_cache_write: "0.0000125"}
+    price_per_million: {prompt: 10.0, completion: 50.0}
+    supports: {logprobs: false, top_logprobs: false, logit_bias: false, temperature: false, seed: false}
+    reasoning: {effort: medium}   # mandatory reasoning; supported efforts max/xhigh/high/medium/low
+  gpt-6-astra:
+    arm: 9
+    kind: reasoning
+    role: ceiling-candidate
+    slug: openai/gpt-6-astra
+    canonical_slug: openai/gpt-6-astra-20260903
+    name: "OpenAI: GPT-6 Astra"
+    status: dropped
+    drop_reason: "was the cheaper frontier candidate ($0.0058/call); replaced on the user's request by a standard-tier OpenAI model (see gpt-6.1-sol / gpt-6.1-terra / gpt-6-luna)"
+    context_length: 1050000
+    pricing: {prompt: "0.00001", completion: "0.00005", input_cache_read: "0.000001", input_cache_write: "0.0000125"}
+    price_per_million: {prompt: 10.0, completion: 50.0}
+    supports: {logprobs: false, top_logprobs: false, logit_bias: false, temperature: false, seed: true}
+    seed: 20261029
+    reasoning: {effort: medium}   # mandatory reasoning; supported efforts max/xhigh/high/medium/low
+
+  # Standard-tier OpenAI candidates for arm 9 (added 2026-10-29 on the user's request to replace Astra with a cheaper,
+  # "more normal" model). Prices and descriptions from the models snapshot; dry run decides.
+  gpt-6.1-sol:
+    arm: 9
+    kind: reasoning
+    role: ceiling-candidate
+    slug: openai/gpt-6.1-sol
+    canonical_slug: openai/gpt-6.1-sol
+    name: "OpenAI: GPT-6.1 Sol"      # "upgrade to GPT-6 Sol, positioned below the flagship GPT-6 Astra"
+    status: selected             # dry run dry-05-arm9: 6/6 correct, $0.00123/call at medium effort, 38 reasoning tokens/call mean
+    context_length: 1050000
+    pricing: {prompt: "0.000002", completion: "0.00001"}
+    price_per_million: {prompt: 2.0, completion: 10.0}
+    supports: {logprobs: false, top_logprobs: false, logit_bias: false, temperature: false, seed: true}
+    seed: 20261029
+    reasoning: {effort: medium}   # mandatory reasoning; efforts max/xhigh/high/medium/low
+  gpt-6.1-terra:
+    arm: 9
+    kind: reasoning
+    role: ceiling-candidate
+    slug: openai/gpt-6.1-terra
+    canonical_slug: openai/gpt-6.1-terra
+    name: "OpenAI: GPT-6.1 Terra"    # "mid-tier model in the GPT-6.1 series, priced below GPT-6.1 Sol"
+    status: dropped
+    drop_reason: "alternative for arm 9: dry run 6/6 correct, $0.00063/call; not chosen because the arm is a ceiling reference and GPT-6.1 Sol is the standard high-end model. Flip status to use it instead."
+    context_length: 1050000
+    pricing: {prompt: "0.000001", completion: "0.000005"}
+    price_per_million: {prompt: 1.0, completion: 5.0}
+    supports: {logprobs: false, top_logprobs: false, logit_bias: false, temperature: false, seed: true}
+    seed: 20261029
+    reasoning: {effort: medium}   # optional reasoning (efforts include none); medium = model default
+  gpt-6-luna:
+    arm: 9
+    kind: reasoning
+    role: ceiling-candidate
+    slug: openai/gpt-6-luna
+    canonical_slug: openai/gpt-6-luna
+    name: "OpenAI: GPT-6 Luna"       # "fast, cost-efficient model in the GPT-6 series, positioned below GPT-6 Sol"
+    status: dropped
+    drop_reason: "alternative for arm 9: dry run 6/6 correct, $0.00011/call, but it is the fast/small tier (124 reasoning tokens/call mean), not a ceiling reference. Flip status to use it instead."
+    context_length: 1050000
+    pricing: {prompt: "0.0000001", completion: "0.0000005"}
+    price_per_million: {prompt: 0.10, completion: 0.50}
+    supports: {logprobs: false, top_logprobs: false, logit_bias: false, temperature: false, seed: true}
+    seed: 20261029
+    reasoning: {effort: medium}
+
+  # ---- Follow-up control arms (HANDOFF-2.md), added 2026-10-29 ----
+  # Endpoint listing re-resolved live on 2026-10-29 from GET /api/v1/models/qwen/qwen3.5-9b/endpoints:
+  # parasail/bf16 is still 0.10 / 0.25 per million and lists reasoning, include_reasoning, logprobs, top_logprobs,
+  # logit_bias, seed and temperature. Other bf16 endpoints that day, kept as fallbacks only if Parasail cannot be
+  # made to think: primeintellect/bf16 (0.051 / 0.075; reasoning, no logprobs) and deepinfra/bf16 (0.10 / 0.15;
+  # reasoning, logit_bias, no logprobs). Per-arm `scope` limits which tiers and whether the label-swap subset run;
+  # the runner applies it on top of the CLI filters so one --models invocation covers all three arms.
+  qwen3.5-9b-reasoning:
+    arm: 10
+    kind: reasoning
+    role: control-9b-reasoning
+    slug: qwen/qwen3.5-9b
+    canonical_slug: qwen/qwen3.5-9b-20260310
+    name: "Qwen: Qwen3.5-9B (thinking on)"
+    status: selected
+    context_length: 262144
+    provider: {order: ["parasail/bf16"], allow_fallbacks: false, require_parameters: true}
+    pricing: {prompt: "0.0000001", completion: "0.00000025"}
+    price_per_million: {prompt: 0.10, completion: 0.25}
+    model_list_price_per_million: {prompt: 0.17, completion: 0.25}
+    supports: {logprobs: true, top_logprobs: true, logit_bias: true, temperature: true, seed: true}
+    temperature: 0
+    seed: 20261029
+    tokenizer: Qwen3
+    reasoning: {enabled: true}       # Qwen3.5 thinking mode via OpenRouter's unified flag (dry-06: thinking present, 638-3944 tokens)
+    # Raised from the shared 6000 after dry-07-followup-t2 (2026-10-30): 1 of 5 tier-2 dry items used all 6000 tokens
+    # thinking and never answered. A truncated control understates reasoning accuracy; a capped call costs at most $0.003.
+    reasoning_max_tokens: 12000
+    logprobs: true                   # ask for token logprobs; the answer token's distribution is recorded in parse_extra only
+    top_logprobs: 5                  # kept small: logprobs come back for every generated token of a long reply
+    pairs_with: qwen3.5-9b           # second base for the 9B matched pairs: head minus reasoning-base (elephant-1, microsoft-decision-1)
+    scope: {tiers: [1, 2, 3], labelswap: true}
+  qwen3.5-9b-prompt-b:
+    arm: 11
+    kind: instant
+    role: control-9b-prompt-b
+    slug: qwen/qwen3.5-9b
+    canonical_slug: qwen/qwen3.5-9b-20260310
+    name: "Qwen: Qwen3.5-9B (system prompt b)"
+    status: selected
+    context_length: 262144
+    provider: {order: ["parasail/bf16"], allow_fallbacks: false, require_parameters: true}
+    pricing: {prompt: "0.0000001", completion: "0.00000025"}
+    price_per_million: {prompt: 0.10, completion: 0.25}
+    model_list_price_per_million: {prompt: 0.17, completion: 0.25}
+    supports: {logprobs: true, top_logprobs: true, logit_bias: true, temperature: true, seed: true}
+    temperature: 0
+    seed: 20261029
+    logit_bias: true
+    tokenizer: Qwen3
+    reasoning: {enabled: false}
+    prompt_variant: b                # "Reply with one token: {allowed}. Nothing else."
+    scope: {tiers: [2], labelswap: false}
+  qwen3.5-9b-prompt-c:
+    arm: 12
+    kind: instant
+    role: control-9b-prompt-c
+    slug: qwen/qwen3.5-9b
+    canonical_slug: qwen/qwen3.5-9b-20260310
+    name: "Qwen: Qwen3.5-9B (system prompt c)"
+    status: selected
+    context_length: 262144
+    provider: {order: ["parasail/bf16"], allow_fallbacks: false, require_parameters: true}
+    pricing: {prompt: "0.0000001", completion: "0.00000025"}
+    price_per_million: {prompt: 0.10, completion: 0.25}
+    model_list_price_per_million: {prompt: 0.17, completion: 0.25}
+    supports: {logprobs: true, top_logprobs: true, logit_bias: true, temperature: true, seed: true}
+    temperature: 0
+    seed: 20261029
+    logit_bias: true
+    tokenizer: Qwen3
+    reasoning: {enabled: false}
+    prompt_variant: c                # the "careful" grading prompt
+    scope: {tiers: [2], labelswap: false}
+
+# Tier 3 generation (frontier generator + independent frontier cross-checker; different vendors).
+tier3:
+  generator_slug: anthropic/claude-fable-5.1
+  checker_slug: openai/gpt-6-astra
+  candidates: 80
+  keep: 50
+
+baseline:
+  name: dumb
+  tier1: keyword-regex
+  tier2: majority-class
