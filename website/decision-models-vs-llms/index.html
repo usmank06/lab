@@ -239,8 +239,16 @@
                     <h2>Conclusion</h2>
                 </div>
                 <div class="prose">
-                    <p>Decision models are real, but they&rsquo;re less than they look. Compared with the same LLM forced to answer in one token, the extra training helps: 10 to 15 points on questions that need reasoning, better probabilities, and far less sensitivity to how the options are labelled. Compared with the same LLM allowed to think, they fall well short. The training teaches the model to answer in the right format, not to reason. What you get from them is speed and a much lower price.</p>
-                    <p>The products also differ a lot. Decider was the best on almost everything and the cheapest. Jev, the one that started the category, was the weakest at reasoning and the least consistent. When the answer is written in the text, any of them works. When it has to be worked out from the text, a cheap model that thinks first beats all of them, if you can wait for it.</p>
+                    <p>Decision models are real, but they&rsquo;re less than they look. Compared with the same LLM forced to answer in one token, the extra training helps: 10 to 15 points on questions that need reasoning, better probabilities, and far less sensitivity to how the options are labelled. Compared with the same LLM allowed to think, they fall well short. The training teaches the model to answer in the right format, not to reason.</p>
+                    <p>Accuracy isn&rsquo;t the whole comparison though. On tier 2 a decision model answered in about a third of a second for one to three cents per thousand decisions. The same 9B thinking took about 23 seconds and 77 cents per thousand, and GPT-6.1 Sol took 2.4 seconds and $1.49. So the decision models are 15 to 40 points behind, but tens of times cheaper and many times faster. Whether that&rsquo;s worth it depends on what you&rsquo;re deciding.</p>
+                    <p>The products also differ a lot. Decider was the best on almost everything and the cheapest. Jev, the one that started the category, was the weakest at reasoning and the least consistent.</p>
+                    <h3>What I&rsquo;d use</h3>
+                    <ul>
+                        <li><strong>When the answer is written in the text, use a decision model.</strong> Routing, tagging, checking whether something is mentioned: every model got 0.94 or better here, and the decision models do it in a third of a second for almost nothing.</li>
+                        <li><strong>When it needs some reasoning and has to be fast, use Decider and let it defer.</strong> It answers when it&rsquo;s confident and passes the rest to a stronger model. With a cutoff of 0.96 it handled 58% of questions itself and got 0.98 overall for less than half of GPT&rsquo;s cost.</li>
+                        <li><strong>When it needs reasoning and getting it right matters more than speed, use a model that thinks.</strong> GPT-6.1 Sol if you need the answer in a couple of seconds, or a small thinking model like Qwen3.5-9B for half the price if you can wait 20-some seconds. Decider could defer to that instead of GPT too, though I didn&rsquo;t test it.</li>
+                    </ul>
+                    <p>Whichever you use, set the cutoff on a few hundred of your own labelled examples. A model&rsquo;s confidence on my questions won&rsquo;t match its confidence on yours.</p>
                 </div>
             </section>
 
@@ -250,7 +258,6 @@
                 </div>
                 <div class="prose">
                     <p>Two things I&rsquo;d try with more time. Baseten&rsquo;s Mammoth&nbsp;1 is built on Qwen3.5-27B, which would give a clean 27B comparison. And nobody has made a decision model on anything bigger than 27B, so the only way to see if it helps at 70B is to train one. Amazon (with its open Strands Decider) and Baseten have both published how they trained theirs.</p>
-                    <p>If you need a decision model today and the answer has to come back in under a second, use Decider, with a confidence cutoff you tune on a few hundred of your own labelled examples. If speed doesn&rsquo;t matter, send the uncertain ones to a thinking Qwen3.5-9B at $0.77 per thousand instead of GPT at $1.49. It&rsquo;s half the price and only a point worse on tier 2.</p>
                 </div>
             </section>
         </main>
