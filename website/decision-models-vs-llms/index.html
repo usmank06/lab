@@ -22,6 +22,7 @@
                     <a href="#question">Question</a>
                     <a href="#method">Method</a>
                     <a href="#results">Results</a>
+                    <a href="#conclusion">Conclusion</a>
                     <a href="#next">Next</a>
                 </nav>
             </div>
@@ -80,7 +81,7 @@
                     <h2>Method</h2>
                 </div>
                 <div class="prose">
-                    <p>I ran eight models plus a simple baseline on 450 questions I generated myself, five times each. After seeing the first results I added one more run: plain Qwen3.5-9B allowed to think before answering, and the one-token version under two other prompts. Everything went through OpenRouter from one machine on October 29 and 30. The whole thing cost $5.83.</p>
+                    <p>I ran eight models plus a simple baseline on 450 questions I generated myself, five times each. After seeing the first results I added one more run: plain Qwen3.5-9B allowed to think before answering, and the one-token version under two other prompts. Everything went through OpenRouter from one machine on October 29 and 30.</p>
                     <table>
                         <thead><tr><th>Group</th><th>Model</th><th>Why it&rsquo;s here</th></tr></thead>
                         <tbody>
@@ -128,7 +129,7 @@
                 <div class="prose">
                     <p><strong>The decision training mostly teaches the format, and Jev isn&rsquo;t the best one.</strong> Making Qwen3.5-9B answer in one token drops it by 46 points on tier 2. The two decision models built on it win back 15 and 10 of those points. Letting the same Qwen think first gets it to 0.992, higher than every decision model here, but it costs about 50 times more and takes 60 to 90 times longer. On tiers 1 and 2, Perplexity&rsquo;s Decider is the best decision model on accuracy, consistency and calibration, and also the cheapest. Jev is the weakest at reasoning, changes its answer on one in eight tier-2 questions between runs, and costs three times what Decider does.</p>
                 </div>
-                <div class="stats" aria-label="Headline numbers">
+                <div class="stats stats-2" aria-label="Headline numbers">
                     <div class="stat">
                         <div class="stat-label">Same 9B, one token vs thinking, tier 2</div>
                         <div class="stat-value">0.53 → 0.99</div>
@@ -138,11 +139,6 @@
                         <div class="stat-label">Decider vs Jev, tier 2</div>
                         <div class="stat-value">0.84 vs 0.61</div>
                         <div class="stat-sub">Decider costs a third as much and gave the same answer on all five runs for every tier-2 question. Jev didn&rsquo;t on 25 of 200.</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-label">Total spend</div>
-                        <div class="stat-value">$5.83</div>
-                        <div class="stat-sub">29,000 calls. Most of it went to GPT in the main run and to thinking Qwen in the second.</div>
                     </div>
                 </div>
 
@@ -235,6 +231,16 @@
 
                 <div class="prose">
                     <p>All the questions, results and code are in the <a href="https://github.com/usmank06/lab/tree/main/2026-10-29-decision-models-vs-llms" target="_blank" rel="noopener noreferrer">repo folder</a>. The raw responses for every call (about 180&nbsp;MB) are on my machine if anyone wants them.</p>
+                </div>
+            </section>
+
+            <section id="conclusion" class="section">
+                <div class="section-head">
+                    <h2>Conclusion</h2>
+                </div>
+                <div class="prose">
+                    <p>Decision models are real, but they&rsquo;re less than they look. Compared with the same LLM forced to answer in one token, the extra training helps: 10 to 15 points on questions that need reasoning, better probabilities, and far less sensitivity to how the options are labelled. Compared with the same LLM allowed to think, they fall well short. The training teaches the model to answer in the right format, not to reason. What you get from them is speed and a much lower price.</p>
+                    <p>The products also differ a lot. Decider was the best on almost everything and the cheapest. Jev, the one that started the category, was the weakest at reasoning and the least consistent. When the answer is written in the text, any of them works. When it has to be worked out from the text, a cheap model that thinks first beats all of them, if you can wait for it.</p>
                 </div>
             </section>
 
