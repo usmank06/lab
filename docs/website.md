@@ -83,3 +83,7 @@ Then open <http://localhost:8000/website/>. Serving the repo root rather than `w
 ## Changing the design
 
 `styles.css` is a trimmed copy of the portfolio's stylesheet with the same tokens (`--text`, `--muted`, `--border`, `--accent`), type scale and breakpoints (960px, 640px). If the portfolio's design changes, carry the change over here so `/lab` still reads as part of the same site.
+
+## Analytics
+
+Every page loads Umami through the stats worker in [`worker/`](../worker/README.md), not from `cloud.umami.is` directly, so blockers don't drop it. The tag is the `<script defer src=".../p.js" …>` line right before `</head>`; it's already in `templates/page.html`, so new pages get it for free. Visits show up in the same Umami site as the portfolio, under `/lab/...` paths.
