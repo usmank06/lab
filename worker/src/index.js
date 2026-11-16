@@ -9,6 +9,10 @@
 const UMAMI = 'https://cloud.umami.is';
 const SCRIPT_PATH = '/p.js';
 
+// Headers Umami's tracker sends with every event. They have to be allowed in
+// the CORS preflight or the browser drops the request, and forwarded on.
+const TRACKER_HEADERS = ['x-umami-website-id', 'x-umami-hostname', 'x-umami-cache'];
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
@@ -34,6 +38,10 @@ export default {
       const headers = new Headers();
       headers.set('content-type', request.headers.get('content-type') || 'application/json');
       headers.set('user-agent', request.headers.get('user-agent') || '');
+      for (const name of TRACKER_HEADERS) {
+        const value = request.headers.get(name);
+        if (value) headers.set(name, value);
+      }
 
       const ip = request.headers.get('cf-connecting-ip');
       if (ip) {
@@ -66,7 +74,9 @@ function cors(request) {
   return {
     'access-control-allow-origin': request.headers.get('origin') || '*',
     'access-control-allow-methods': 'GET, POST, OPTIONS',
-    'access-control-allow-headers': 'content-type',
+    'access-control-allow-headers':
+      request.headers.get('access-control-request-headers') ||
+      ['content-type', ...TRACKER_HEADERS].join(', '),
     'access-control-max-age': '86400',
     vary: 'origin',
   };
